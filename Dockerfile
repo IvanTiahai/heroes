@@ -1,8 +1,15 @@
-# Використовуємо готовий образ Nginx
+# Використовуємо легкий образ Nginx
 FROM nginx:alpine
 
-# Копіюємо всі файли проєкту у папку, яку показує Nginx
+# Видаляємо дефолтну сторінку
+RUN rm -rf /usr/share/nginx/html/*
+
+# Копіюємо всі файли з репозиторію у папку для Nginx
 COPY . /usr/share/nginx/html
 
 # Відкриваємо порт 80
 EXPOSE 80
+
+# Запускаємо Nginx у форграунді
+CMD ["nginx", "-g", "daemon off;"]
+
